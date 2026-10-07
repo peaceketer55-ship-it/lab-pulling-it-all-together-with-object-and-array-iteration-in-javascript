@@ -3,8 +3,7 @@ function gameObject() {
         home: {
             teamName: "Brooklyn Nets",
             colors: ["Black", "White"],
-            players: {
-                "Alan Anderson": {
+            players: { "Alan Anderson": {
                     number: 0,
                     shoe: 16,
                     points: 22,
@@ -113,4 +112,81 @@ function gameObject() {
             },
         },
     };
+}
+
+
+
+function numPointsScored(playerName) {
+    if (gameObject().home.players[playerName]) {
+        return gameObject().home.players[playerName].points;
+    }
+
+    if (gameObject().away.players[playerName]) {
+        return gameObject().away.players[playerName].points;
+    }
+}
+
+function shoeSize(playerName) {
+    if (gameObject().home.players[playerName]) {
+        return gameObject().home.players[playerName].shoe;
+    }
+
+    if (gameObject().away.players[playerName]) {
+        return gameObject().away.players[playerName].shoe;
+    }
+}
+
+function teamColors(teamName) {
+    if (gameObject().home.teamName === teamName) {
+        return gameObject().home.colors;
+    }
+
+    if (gameObject().away.teamName === teamName) {
+        return gameObject().away.colors;
+    }
+}
+
+function teamNames() {
+    return [gameObject().home.teamName, gameObject().away.teamName];
+}
+
+function playerNumbers(teamName) {
+    if (gameObject().home.teamName === teamName) {
+        return Object.keys(gameObject().home.players).map(function(player) {
+            return gameObject().home.players[player].number;
+        });
+    }
+
+    if (gameObject().away.teamName === teamName) {
+        return Object.keys(gameObject().away.players).map(function(player) {
+            return gameObject().away.players[player].number;
+        });
+    }
+}
+
+function playerStats(playerName) {
+    if (gameObject().home.players[playerName]) {
+        return gameObject().home.players[playerName];
+    }
+
+    if (gameObject().away.players[playerName]) {
+        return gameObject().away.players[playerName];
+    }
+}
+
+function bigShoeRebounds() {
+    const allPlayers = Object.assign({}, gameObject().home.players, gameObject().away.players);
+    let reboundTotal = 0;
+    let biggestShoe = 0;
+
+    Object.keys(allPlayers).forEach(function(player) {
+        const currentPlayer = allPlayers[player];
+
+        if (currentPlayer.shoe > biggestShoe) {
+            biggestShoe = currentPlayer.shoe;
+            reboundTotal = currentPlayer.rebounds;
+        }
+    });
+
+    return reboundTotal;
 }
